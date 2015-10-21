@@ -48,7 +48,7 @@ elif [ "$ARCH" = "s390" ]; then
   SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-march=native -O2 -pipe"
+  SLKCFLAGS="-march=haswell -O2 -pipe"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -82,14 +82,12 @@ zcat $CWD/xfce4-settings.xft.defaults.diff.gz | patch -p1 --verbose || exit 1
 
 # Configure:
 CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
 ./autogen.sh \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
   --mandir=/usr/man \
   --docdir=/usr/doc/$PKGNAM-$VERSION \
-  --enable-xorg-libinput \
   --enable-pluggable-dialogs \
   --enable-sound-settings \
   --disable-static \

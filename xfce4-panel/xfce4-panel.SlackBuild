@@ -39,6 +39,8 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
+wget -c http://archive.xfce.org/src/xfce/xfce4-panel/4.12/$PKGNAM-$VERSION.tar.bz2
+
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
@@ -46,7 +48,7 @@ elif [ "$ARCH" = "s390" ]; then
   SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -fPIC"
+  SLKCFLAGS="-march=haswell -O2 -pipe"
   LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
@@ -61,10 +63,11 @@ OUTPUT=${OUTPUT:-/tmp}
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PKGNAM
-git clone git://git.xfce.org/xfce/xfce4-panel || exit 1
-cd $PKGNAM || exit 1
-git checkout
+rm -rf $PKGNAM-$VERSION
+tar xvf $CWD/$PKGNAM-$VERSION.tar.bz2 || exit 1
+#git clone git://git.xfce.org/xfce/xfce4-panel || exit 1
+cd $PKGNAM-$VERSION || exit 1
+#git checkout
 
 chown -R root:root .
 find . \
@@ -75,7 +78,7 @@ find . \
 
 # Configure:
 CFLAGS="$SLKCFLAGS" \
-./autogen.sh \
+./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
