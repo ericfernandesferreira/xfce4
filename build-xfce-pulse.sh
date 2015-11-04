@@ -41,7 +41,8 @@ XSBROOT=$(pwd)
 # Loop for all base packages
 for dir in \
   upower \
-  gtksourceview \
+  glade \
+  gtksourceview3 \
   dmz-cursor-theme \
   xfce4-dev-tools \
   libxfce4util \
@@ -67,7 +68,7 @@ for dir in \
   pangomm \
   atkmm \
   mm-common \
-  gtkmm \
+  gtkmm3 \
   thunar-volman \
   xfce4-power-manager \
   xfce4-notifyd \
@@ -78,6 +79,7 @@ for dir in \
   xfce4-cpugraph-plugin \
   xfce4-screenshooter \
   xfce4-systemload-plugin \
+  libwnck3 \
   xfce4-taskmanager \
   xfce4-weather-plugin \
   mousepad \
