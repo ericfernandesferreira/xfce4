@@ -27,7 +27,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=glibmm
-VERSION=${VERSION:-2.44.0}
+VERSION=${VERSION:-2.46.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -39,7 +39,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://ftp.acc.umu.se/pub/GNOME/sources/glibmm/2.44/$PRGNAM-$VERSION.tar.xz
+wget -c http://ftp.acc.umu.se/pub/GNOME/sources/glibmm/2.46/$PRGNAM-$VERSION.tar.xz
 
 NUMJOBS=${NUMJOBS:-" -j8 "}
 
