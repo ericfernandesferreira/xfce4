@@ -23,7 +23,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PKGNAM=gtk-xfce-engine
-VERSION=${VERSION:-3.2.0}
+VERSION=${VERSION:-2.10.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
