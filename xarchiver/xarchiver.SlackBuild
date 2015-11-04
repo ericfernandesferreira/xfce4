@@ -38,6 +38,8 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
+wget -c http://downloads.sourceforge.net/project/xarchiver/$PRGNAM-$VERSION.tar.bz2
+
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
 PKG=$TMP/package-$PRGNAM
@@ -62,10 +64,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM
-git clone git://git.xfce.org/archive/xarchiver
-cd $PRGNAM
-git checkout
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+cd $PRGNAM-$VERSION
 
 chown -R root:root .
 find -L . \
@@ -74,6 +75,9 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
+# For GTK3
+patch -p1 < $CWD/xarchiver-gtk3-port.patch
+
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./autogen.sh \
@@ -81,7 +85,6 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
   --localstatedir=/var \
-  --disable-gtk3 \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --enable-debug=no \
   --build=$ARCH-slackware-linux
