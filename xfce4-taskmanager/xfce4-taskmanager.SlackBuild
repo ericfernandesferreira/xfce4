@@ -82,6 +82,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-shared=yes \
   --enable-static=no \
   --enable-debug=no \
+  --enable-gtk3 \
   --build=$ARCH-slackware-linux || exit 1
 
 make $NUMJOBS || make || exit 1

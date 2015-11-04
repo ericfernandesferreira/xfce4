@@ -82,7 +82,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --mandir=/usr/man \
   --disable-static \
   --disable-debug \
-  --disable-gtk3 \
+  --enable-gtk3 \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --build=$ARCH-slackware-linux
 

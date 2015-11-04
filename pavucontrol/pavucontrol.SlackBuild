@@ -63,7 +63,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
   --localstatedir=/var \
-  --disable-gtk3 \
+  --enable-gtk3 \
   --mandir=/usr/man \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --build=$ARCH-slackware-linux

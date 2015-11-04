@@ -86,7 +86,7 @@ CFLAGS="$SLKCFLAGS" \
   --docdir=/usr/doc/$PKGNAM-$VERSION \
   --disable-static \
   --disable-debug \
-  --disable-gtk3 \
+  --enable-gtk3 \
   --build=$ARCH-slackware-linux || exit 1
 
 # Build and install:
