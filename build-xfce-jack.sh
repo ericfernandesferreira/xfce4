@@ -59,6 +59,8 @@ for dir in \
   xfwm4 \
   xfce4-appfinder \
   gtk-xfce-engine \
+  murrine \
+  Greybird \
   xfce4-terminal \
   orage \
   xfce4-mixer \
