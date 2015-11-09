@@ -1,9 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for Xfce4-notifyd
+# Slackware build script for gtkmm
 
-# Copyright 2008  Frank Caraballo <fecaraballo{at}gmail{dot}com>
-# Copyright 2010  Patrick J. Volkerding, Sebeka, MN, USA
+# Copyright (C) 2006 paul wisehart wise@lupulin.net
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,24 +22,30 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# Modified by Robby Workman <rworkman@slackbuilds.org>
+# Modified by Willy Sudiarto Raharjo <willysr@slackware-id.org> for MSB Project
+
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
-PKGNAM=xfce4-notifyd
-VERSION=${VERSION:-0.2.4}
+PRGNAM=gtkmm
+VERSION=${VERSION:-2.24.4}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
-# Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) export ARCH=i486 ;;
-    arm*) export ARCH=arm ;;
-    # Unless $ARCH is already set, use uname -m for all other archs:
-       *) export ARCH=$( uname -m ) ;;
+    i?86) ARCH=i486 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
   esac
 fi
 
-NUMJOBS=${NUMJOBS:-" -j7 "}
+wget -c http://download.gnome.org/sources/gtkmm/2.24/$PRGNAM-$VERSION.tar.xz
+
+CWD=$(pwd)		
+TMP=${TMP:-/tmp/xsb}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -56,19 +61,14 @@ else
   LIBDIRSUFFIX=""
 fi
 
-CWD=$(pwd)
-TMP=${TMP:-/tmp/xsb}
-PKG=$TMP/package-$PKGNAM
-OUTPUT=${OUTPUT:-/tmp}
+set -e
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PKGNAM
-git clone git://git.xfce.org/apps/xfce4-notifyd || exit 1
-cd $PKGNAM || exit 1
-git checkout
-
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
+cd $PRGNAM-$VERSION
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -77,50 +77,26 @@ find . \
  -exec chmod 644 {} \;
 
 CFLAGS="$SLKCFLAGS" \
-./autogen.sh \
+CXXFLAGS="$SLKCFLAGS" \
+  ./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
-  --sysconfdir=/etc/xfce \
+  --sysconfdir=/etc \
   --localstatedir=/var \
-  --mandir=/usr/man \
+  --docdir=/usr/doc/$PRGNAM-$VERSION \
   --disable-static \
-  --disable-debug \
-  --build=$ARCH-slackware-linux || exit 1
+  --build=$ARCH-slackware-linux
 
-make $NUMJOBS || make || exit 1
-make install-strip DESTDIR=$PKG || exit 1
+make libdocdir=/usr/doc/$PRGNAM-$VERSION -j5
+make install-strip DESTDIR=$PKG libdocdir=/usr/doc/$PRGNAM-$VERSION
 
-# Compress and if needed symlink the man pages:
-if [ -d $PKG/usr/man ]; then
-  ( cd $PKG/usr/man
-    for manpagedir in $(find . -type d -name "man*") ; do
-      ( cd $manpagedir
-        for eachpage in $( find . -type l -maxdepth 1) ; do
-          ln -s $( readlink $eachpage ).gz $eachpage.gz
-          rm $eachpage
-        done
-        gzip -9 *.?
-      )
-    done
-  )
-fi
-
-mkdir -p $PKG/usr/doc/$PKGNAM-$VERSION
-cp -a \
-  AUTHORS COPYING ChangeLog NEWS README TODO \
-    $PKG/usr/doc/$PKGNAM-$VERSION
-
-# If there's a ChangeLog, installing at least part of the recent history
-# is useful, but don't let it get totally out of control:
-if [ -r ChangeLog ]; then
-  DOCSDIR=$(echo $PKG/usr/doc/${PKGNAM}-$VERSION)
-  cat ChangeLog | head -n 1000 > $DOCSDIR/ChangeLog
-  touch -r ChangeLog $DOCSDIR/ChangeLog
-fi
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a AUTHORS COPYING ChangeLog INSTALL NEWS PORTING README* \
+  $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}

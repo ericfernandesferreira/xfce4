@@ -29,7 +29,7 @@
 
 PRGNAM=gtkmm3
 SRCNAM=gtkmm
-VERSION=${VERSION:-3.18.0}
+VERSION=${VERSION:-3.16.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -41,7 +41,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://download.gnome.org/sources/gtkmm/3.18/$SRCNAM-$VERSION.tar.xz
+wget -c http://download.gnome.org/sources/gtkmm/3.16/$SRCNAM-$VERSION.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}

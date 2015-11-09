@@ -74,6 +74,7 @@ for dir in \
   xfce4-cpugraph-plugin \
   xfce4-screenshooter \
   xfce4-systemload-plugin \
+  xfce4-calculator-plugin \
   libwnck3 \
   xfce4-taskmanager \
   xfce4-weather-plugin \

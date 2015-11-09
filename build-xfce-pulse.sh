@@ -63,14 +63,15 @@ for dir in \
   Greybird \
   xfce4-terminal \
   orage \
-  xfce4-mixer \
   libsigc++ \
   glibmm \
   cairomm \
   pangomm \
   atkmm \
   mm-common \
+  gtkmm \
   gtkmm3 \
+  pavucontrol \
   thunar-volman \
   xfce4-power-manager \
   xfce4-notifyd \
@@ -81,6 +82,7 @@ for dir in \
   xfce4-cpugraph-plugin \
   xfce4-screenshooter \
   xfce4-systemload-plugin \
+  xfce4-calculator-plugin \
   libwnck3 \
   xfce4-taskmanager \
   xfce4-weather-plugin \

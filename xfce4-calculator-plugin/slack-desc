@@ -6,14 +6,14 @@
 # customary to leave one space after the ':'.
 
                        |-----handy-ruler------------------------------------------------------|
-xfce4-systemload-plugin: xfce4-systemload-plugin (systemload plugin for the Xfce panel)
-xfce4-systemload-plugin:
-xfce4-systemload-plugin: This plugin displays the current system load on the Xfce panel.
-xfce4-systemload-plugin:
-xfce4-systemload-plugin:
-xfce4-systemload-plugin:
-xfce4-systemload-plugin:
-xfce4-systemload-plugin:
-xfce4-systemload-plugin:
-xfce4-systemload-plugin:
-xfce4-systemload-plugin:
+xfce4-calculator-plugin: xfce4-calculator-plugin (calculator plugin for the Xfce panel)
+xfce4-calculator-plugin:
+xfce4-calculator-plugin: This plugin displays the current system load on the Xfce panel.
+xfce4-calculator-plugin:
+xfce4-calculator-plugin:
+xfce4-calculator-plugin:
+xfce4-calculator-plugin:
+xfce4-calculator-plugin:
+xfce4-calculator-plugin:
+xfce4-calculator-plugin:
+xfce4-calculator-plugin:
