@@ -40,7 +40,9 @@ XSBROOT=$(pwd)
 
 # Loop for all base packages
 for dir in \
+  glade \
   gtksourceview3 \
+  gnome-icon-theme \
   dmz-cursor-theme \
   xfce4-dev-tools \
   libxfce4util \
@@ -51,6 +53,7 @@ for dir in \
   tumbler \
   thunar \
   xfce4-panel \
+  libwnck3 \
   xfce4-settings \
   xfce4-session \
   xfdesktop \
@@ -68,14 +71,13 @@ for dir in \
   xfce4-power-manager \
   xfce4-notifyd \
   xfce4-volumed-pulse \
+  libxnvctrl \
   xfce4-sensors-plugin \
   xfce4-clipman-plugin \
   xfce4-cpufreq-plugin \
   xfce4-cpugraph-plugin \
   xfce4-screenshooter \
   xfce4-systemload-plugin \
-  xfce4-calculator-plugin \
-  libwnck3 \
   xfce4-taskmanager \
   xfce4-weather-plugin \
   mousepad \
