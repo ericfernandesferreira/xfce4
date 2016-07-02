@@ -4,16 +4,18 @@ Source do Xfce4 : github
 Esse source foi construído principalmente para quem quiser usar a última versão do xfce4 junto com o pulseaudio ou com jack audio.
 
 Requerimentos:
-- slackware64 current
+- slackware64 14.2
 - pulseaudio ou jack audio
 
 Conteúdo:
 - xarchiver
 - dmz-cursor
+- gnome icon
+- greybird theme
 - mousepad
 - ristretto
 - thunar plugins
-- sensors plugins
+- sensors plugins (inclusing nvidia sensors)
 
 Como instalar:
 - você precisa baixar o .zip ou clonar o git e então executar o script
@@ -30,16 +32,18 @@ Xfce4 Source: github
 This source was built especially for those who want to use the latest version of xfce4 with the pulseaudio or audio jack.
 
 Requirements:
-- slackware64 current
+- slackware64 14.2
 - pulseaudio or audio jack
 
 Contents:
 - xarchiver
 - dmz-cursor
+- gnome icon
+- greybird theme
 - mousepad
 - ristretto
 - thunar plugins
-- sensors plugins
+- sensors plugins (inclusing nvidia sensors)
 
 How to install:
 - you need to download the .zip or clone git and then run the script
