@@ -38,8 +38,6 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://archive.xfce.org/src/apps/$PKGNAM/0.2/$PKGNAM-$VERSION.tar.bz2
-
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
 PKG=$TMP/package-$PKGNAM
@@ -64,9 +62,10 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PKGNAM-$VERSION
-tar xvf $CWD/$PKGNAM-$VERSION.tar.bz2
-cd $PKGNAM-$VERSION
+rm -rf $PKGNAM
+git clone git://git.xfce.org/apps/xfce4-notifyd
+cd $PKGNAM
+git checkout
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -74,11 +73,8 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-patch -p1 < $CWD/0001-Set-notifications-as-override-redirect-windows-bug-1.patch
-patch -p1 < $CWD/0002-Use-accessor-function-to-get-the-GdkWindow.patch
-
 CFLAGS="$SLKCFLAGS" \
-./configure \
+./autogen.sh \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc/xfce \

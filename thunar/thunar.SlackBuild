@@ -106,7 +106,7 @@ if [ -d $PKG/usr/man ]; then
 fi
 
 # We don't want icon caches:
-# find $PKG/usr/share/icons -type f -name "icon-theme.cache" -exec rm -f {} \;
+find $PKG/usr/share/icons -type f -name "icon-theme.cache" -exec rm -f {} \;
 
 mkdir -p $PKG/usr/doc/${PKGNAM}-$VERSION
 cp -a AUTHORS COPYING* ChangeLog* FAQ HACKING NEWS README THANKS TODO \

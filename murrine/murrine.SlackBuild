@@ -85,6 +85,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --infodir=/usr/info \
   --enable-animation \
+  --enable-animationrtl \
   --build=$ARCH-slackware-linux
 
 make

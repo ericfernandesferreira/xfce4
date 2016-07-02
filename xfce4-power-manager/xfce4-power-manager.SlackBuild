@@ -110,10 +110,6 @@ fi
 
 mkdir -p $PKG/usr/doc/$PKGNAM-$VERSION/html
 cp -a AUTHORS COPYING NEWS README TODO $PKG/usr/doc/$PKGNAM-$VERSION
-( cd $PKG/usr/doc/$PKGNAM-$VERSION/html
-  ln -s /usr/share/xfce4/doc/C/xfce4-power-manager.html index.html
-  ln -s /usr/share/xfce4/doc/C/images .
-)
 
 if [ -r ChangeLog ]; then
   DOCSDIR=$(echo $PKG/usr/doc/${PKGNAM}-$VERSION)

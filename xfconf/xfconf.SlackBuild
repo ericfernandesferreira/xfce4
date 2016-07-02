@@ -35,8 +35,6 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://archive.xfce.org/src/xfce/xfconf/4.12/xfconf-4.12.0.tar.bz2
-
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
 PKG=$TMP/package-$PKGNAM
@@ -61,11 +59,10 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PKGNAM-$VERSION
-tar xvf $CWD/$PKGNAM-$VERSION.tar.bz2
-#git clone git://git.xfce.org/xfce/xfconf
-cd $PKGNAM-$VERSION
-#git checkout
+rm -rf $PKGNAM
+git clone git://git.xfce.org/xfce/xfconf
+cd $PKGNAM
+git checkout
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -74,7 +71,7 @@ find -L . \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 CFLAGS="$SLKCFLAGS" \
-./configure \
+./autogen.sh \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
@@ -104,6 +101,9 @@ if [ -d $PKG/usr/man ]; then
     done
   )
 fi
+
+# We don't want icon caches:
+# find $PKG/usr/share/icons -type f -name "icon-theme.cache" -exec rm -f {} \;
 
 mkdir -p $PKG/usr/doc/${PKGNAM}-$VERSION
 cp -a AUTHORS COPYING NEWS README TODO $PKG/usr/doc/${PKGNAM}-$VERSION

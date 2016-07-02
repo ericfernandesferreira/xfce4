@@ -80,7 +80,7 @@ CFLAGS="$SLKCFLAGS" \
   --enable-gtk3 \
   --disable-static \
   --disable-debug \
-  --build=$ARCH-slackware-linux || exit 1
+  --build=$ARCH-slackware-linux
 
 make
 make install DESTDIR=$PKG
@@ -102,6 +102,9 @@ if [ -d $PKG/usr/man ]; then
     done
   )
 fi
+
+# We don't want icon caches:
+# find $PKG/usr/share/icons -type f -name "icon-theme.cache" -exec rm -f {} \;
 
 mkdir -p $PKG/usr/doc/${PKGNAM}-$VERSION
 cp -a AUTHORS COPYING NEWS README TODO $PKG/usr/doc/${PKGNAM}-$VERSION

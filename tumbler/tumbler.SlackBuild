@@ -102,6 +102,9 @@ if [ -d $PKG/usr/man ]; then
   )
 fi
 
+# We don't want icon caches:
+# find $PKG/usr/share/icons -type f -name "icon-theme.cache" -exec rm -f {} \;
+
 mkdir -p $PKG/usr/doc/${PKGNAM}-$VERSION
 cp -a AUTHORS CODING_STYLE COPYING NEWS README TODO $PKG/usr/doc/${PKGNAM}-$VERSION
 

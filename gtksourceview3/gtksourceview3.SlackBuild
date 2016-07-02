@@ -28,7 +28,7 @@
 
 PRGNAM=gtksourceview3
 SRCNAM=gtksourceview
-VERSION=${VERSION:-3.18.2}
+VERSION=${VERSION:-3.18.4}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -90,6 +90,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var \
   --mandir=/usr/man \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --enable-glade-catalog \
   --build=$ARCH-slackware-linux
 
 PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$TMP/$PRGNAM-$VERSION make

@@ -69,8 +69,11 @@ CXXFLAGS="$SLKCFLAGS -std=c++11" \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --build=$ARCH-slackware-linux
 
+find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
 make
-make install-strip DESTDIR=$PKG
+make install DESTDIR=$PKG
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a doc/README LICENSE $PKG/usr/doc/$PRGNAM-$VERSION
