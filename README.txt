@@ -1,5 +1,5 @@
 Versão do Xfce4 : 4.12
-Source do Xfce4 : github
+Source do Xfce4 : http://archive.xfce.org/
 
 Esse source foi construído principalmente para quem quiser usar a última versão do xfce4 junto com o pulseaudio ou com jack audio.
 
@@ -27,7 +27,7 @@ Caso prefira usar o Pavucontrol para controlar o pulseaudio, basta remover o xfc
 ---------------------------------------------------------------------------
 
 Xfce4 Version: 4.12
-Xfce4 Source: github
+Xfce4 Source: http://archive.xfce.org/
 
 This source was built especially for those who want to use the latest version of xfce4 with the pulseaudio or audio jack.
 
