@@ -37,6 +37,8 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
+# wget -c http://archive.xfce.org/src/panel-plugins/xfce4-pulseaudio-plugin/0.2/$PKGNAM-$VERSION.tar.bz2
+
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
 PKG=$TMP/package-$PKGNAM
@@ -62,6 +64,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PKGNAM
+# tar xvf $CWD/$PKGNAM-$VERSION.tar.bz2
 git clone git://git.xfce.org/panel-plugins/xfce4-pulseaudio-plugin
 cd $PKGNAM
 git checkout

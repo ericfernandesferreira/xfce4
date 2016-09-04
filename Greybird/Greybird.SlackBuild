@@ -25,7 +25,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=Greybird
-VERSION=${VERSION:-1.6.2}
+VERSION=${VERSION:-3.18.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -36,6 +36,8 @@ if [ -z "$ARCH" ]; then
        *) ARCH=$( uname -m ) ;;
   esac
 fi
+
+wget -c https://github.com/shimmerproject/Greybird/archive/v$VERSION.tar.gz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -61,13 +63,11 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM
-git clone https://github.com/shimmerproject/Greybird.git
-cd $PRGNAM
-git checkout
-
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/v$VERSION.tar.gz
+cd $PRGNAM-$VERSION
 install -d $PKG/usr/share/themes
-cp -rf $TMP/$PRGNAM/ $PKG/usr/share/themes/$PRGNAM
+cp -rf $TMP/$PRGNAM-$VERSION/ $PKG/usr/share/themes/$PRGNAM
 rm $PKG/usr/share/themes/$PRGNAM/.gitignore
 #ln -s /usr/share/themes/$PRGNAM/xfwm4-compact "$PKG/usr/share/themes/$PRGNAM Compact/xfwm4"
 #ln -s /usr/share/themes/$PRGNAM/xfwm4-a11y "$PKG/usr/share/themes/$PRGNAM a11y/xfwm4"

@@ -34,6 +34,8 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
+wget -c http://archive.xfce.org/src/apps/mousepad/0.4/$PRGNAM-$VERSION.tar.bz2
+
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
 PKG=$TMP/package-$PRGNAM
@@ -58,10 +60,11 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM
-git clone git://git.xfce.org/apps/mousepad
-cd $PRGNAM
-git checkout
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+# git clone git://git.xfce.org/apps/mousepad
+cd $PRGNAM-$VERSION
+# git checkout
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -71,7 +74,7 @@ find -L . \
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-./autogen.sh \
+./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
@@ -79,7 +82,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --mandir=/usr/man \
   --disable-static \
   --disable-debug \
-  --enable-gtk3 \
+  --disable-gtk3 \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --build=$ARCH-slackware-linux
 

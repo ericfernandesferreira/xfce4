@@ -35,6 +35,8 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
+wget -c https://git.xfce.org/xfce/$PKGNAM/snapshot/$PKGNAM-f010198fb6e52c66bd1b4a9119ad65c5d1467b3e.tar.bz2
+
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
 PKG=$TMP/package-$PKGNAM
@@ -59,10 +61,11 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PKGNAM
-git clone git://git.xfce.org/xfce/xfce4-settings
-cd $PKGNAM
-git checkout
+rm -rf $PKGNAM-$VERSION
+tar xvf $CWD/$PKGNAM-f010198fb6e52c66bd1b4a9119ad65c5d1467b3e.tar.bz2
+# git clone git://git.xfce.org/xfce/xfce4-settings
+mv $PKGNAM-f010198fb6e52c66bd1b4a9119ad65c5d1467b3e $PKGNAM-$VERSION
+cd $PKGNAM-$VERSION
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -70,9 +73,7 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-cat $CWD/xfce.xfsettingsd.display.crtc.diff | patch -p1 --verbose
-cat $CWD/xfce4-settings.theme.diff | patch -p1 --verbose
-cat $CWD/xfce4-settings.xft.defaults.diff | patch -p1 --verbose
+patch -p1 -i $CWD/default-xsettings-xml.patch
 
 CFLAGS="$SLKCFLAGS" \
 ./autogen.sh \

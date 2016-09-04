@@ -23,6 +23,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PKGNAM=thunar
+SRCNAM=Thunar
 VERSION=${VERSION:-1.6.10}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
@@ -34,6 +35,8 @@ if [ -z "$ARCH" ]; then
        *) ARCH=$( uname -m ) ;;
   esac
 fi
+
+wget -c http://archive.xfce.org/src/xfce/thunar/1.6/$SRCNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -59,10 +62,11 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PKGNAM
-git clone git://git.xfce.org/xfce/thunar
-cd $PKGNAM
-git checkout
+rm -rf $SRCNAM-$VERSION
+tar xvf $CWD/$SRCNAM-$VERSION.tar.bz2
+# git clone git://git.xfce.org/xfce/thunar
+cd $SRCNAM-$VERSION
+# git checkout
 find . -exec touch {} \;
 chown -R root:root .
 find -L . \
@@ -74,7 +78,7 @@ find -L . \
 zcat $CWD/0001-Deactivate-SEND_MOVED-code-paths.patch.gz | patch -p1 --verbose
 
 CFLAGS="$SLKCFLAGS" \
-./autogen.sh \
+./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \

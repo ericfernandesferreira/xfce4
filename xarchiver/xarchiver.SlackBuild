@@ -74,8 +74,7 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-# For GTK3
-patch -p1 < $CWD/xarchiver-gtk3-port.patch
+patch -Np1 -i $CWD/xarchiver-0.5.4-fixes-1.patch
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -85,7 +84,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc \
   --localstatedir=/var \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --enable-debug=no \
+  --disable-gtk3 \
   --build=$ARCH-slackware-linux
 
 make

@@ -23,7 +23,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PKGNAM=exo
-VERSION=${VERSION:-0.10.7}
+VERSION=${VERSION:-0.11.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -34,6 +34,8 @@ if [ -z "$ARCH" ]; then
        *) ARCH=$( uname -m ) ;;
   esac
 fi
+
+wget -c http://archive.xfce.org/src/xfce/exo/0.11/$PKGNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -59,10 +61,11 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PKGNAM
-git clone git://git.xfce.org/xfce/exo
-cd $PKGNAM
-git checkout
+rm -rf $PKGNAM-$VERSION
+tar xvf $CWD/$PKGNAM-$VERSION.tar.bz2
+# git clone git://git.xfce.org/xfce/exo
+cd $PKGNAM-$VERSION
+# git checkout
 find . -exec touch {} \;
 chown -R root:root .
 find -L . \
@@ -72,7 +75,7 @@ find -L . \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 CFLAGS="$SLKCFLAGS" \
-./autogen.sh \
+./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \

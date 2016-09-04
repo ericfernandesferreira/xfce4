@@ -35,6 +35,8 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
+wget -c http://archive.xfce.org/src/xfce/xfce4-panel/4.12/$PKGNAM-$VERSION.tar.bz2
+
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
 PKG=$TMP/package-$PKGNAM
@@ -59,10 +61,14 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PKGNAM
-git clone git://git.xfce.org/xfce/xfce4-panel
-cd $PKGNAM
-git checkout
+rm -rf $PKGNAM-$VERSION
+tar xvf $CWD/$PKGNAM-$VERSION.tar.bz2
+# git clone git://git.xfce.org/xfce/xfce4-panel
+cd $PKGNAM-$VERSION
+
+# Blink to notify 4 times (4 on, 4 off), not G_MAXUINT times:
+zcat $CWD/libxfce4panel.max_blinking_count.8.diff.gz | patch -p0 --verbose
+
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -71,7 +77,7 @@ find -L . \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 CFLAGS="$SLKCFLAGS" \
-./autogen.sh \
+./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
@@ -107,7 +113,7 @@ fi
 # find $PKG/usr/share/icons -type f -name "icon-theme.cache" -exec rm -f {} \;
 
 mkdir -p $PKG/usr/doc/${PKGNAM}-$VERSION
-cp -a AUTHORS COPYING* NEWS README STATUS THANKS TODO $PKG/usr/doc/${PKGNAM}-$VERSION
+cp -a AUTHORS COPYING* NEWS README THANKS TODO $PKG/usr/doc/${PKGNAM}-$VERSION
 
 if [ -r ChangeLog ]; then
   DOCSDIR=$(echo $PKG/usr/doc/${PKGNAM}-$VERSION)

@@ -84,7 +84,7 @@ CFLAGS="$SLKCFLAGS" \
   --enable-shared=yes \
   --enable-static=no \
   --enable-debug=no \
-  --disable-network-manager \
+  --enable-network-manager \
   --build=$ARCH-slackware-linux
 
 make

@@ -26,7 +26,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PKGNAM=xfce4-notifyd
-VERSION=${VERSION:-0.2.4}
+VERSION=${VERSION:-0.3.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -37,6 +37,8 @@ if [ -z "$ARCH" ]; then
        *) ARCH=$( uname -m ) ;;
   esac
 fi
+
+wget -c https://git.xfce.org/apps/xfce4-notifyd/snapshot/xfce4-notifyd-ab314bc51a8f46a16bf0cf1058a04cd624c5be04.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -62,10 +64,12 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PKGNAM
-git clone git://git.xfce.org/apps/xfce4-notifyd
-cd $PKGNAM
-git checkout
+rm -rf $PKGNAM-$VERSION
+tar xvf $CWD/$PKGNAM-ab314bc51a8f46a16bf0cf1058a04cd624c5be04.tar.bz2
+# git clone git://git.xfce.org/apps/xfce4-notifyd
+mv $PKGNAM-ab314bc51a8f46a16bf0cf1058a04cd624c5be04 $PKGNAM-$VERSION
+cd $PKGNAM-$VERSION
+# git checkout
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
