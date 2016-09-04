@@ -41,7 +41,7 @@ XSBROOT=$(pwd)
 # Loop for all base packages
 for dir in \
   glade \
-  gtksourceview3 \
+  gtksourceview \
   gnome-icon-theme \
   dmz-cursor-theme \
   xfce4-dev-tools \
@@ -53,7 +53,6 @@ for dir in \
   tumbler \
   thunar \
   xfce4-panel \
-  libwnck3 \
   xfce4-settings \
   xfce4-session \
   xfdesktop \
@@ -62,7 +61,6 @@ for dir in \
   gtk-xfce-engine \
   murrine \
   Greybird \
-  vte3 \
   xfce4-terminal \
   orage \
   mm-common \
