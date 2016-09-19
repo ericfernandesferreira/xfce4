@@ -23,7 +23,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PKGNAM=xfce4-settings
-VERSION=${VERSION:-4.12.0}
+VERSION=${VERSION:-4.12.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -35,7 +35,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://git.xfce.org/xfce/$PKGNAM/snapshot/$PKGNAM-f010198fb6e52c66bd1b4a9119ad65c5d1467b3e.tar.bz2
+wget -c http://archive.xfce.org/src/xfce/xfce4-settings/4.12/$PKGNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -62,10 +62,10 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PKGNAM-$VERSION
-tar xvf $CWD/$PKGNAM-f010198fb6e52c66bd1b4a9119ad65c5d1467b3e.tar.bz2
+tar xvf $CWD/$PKGNAM-$VERSION.tar.bz2
 # git clone git://git.xfce.org/xfce/xfce4-settings
-mv $PKGNAM-f010198fb6e52c66bd1b4a9119ad65c5d1467b3e $PKGNAM-$VERSION
 cd $PKGNAM-$VERSION
+# git checkout
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -76,7 +76,7 @@ find -L . \
 patch -p1 -i $CWD/default-xsettings-xml.patch
 
 CFLAGS="$SLKCFLAGS" \
-./autogen.sh \
+./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
