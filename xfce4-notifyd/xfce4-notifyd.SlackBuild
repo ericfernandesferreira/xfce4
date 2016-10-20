@@ -26,7 +26,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PKGNAM=xfce4-notifyd
-VERSION=${VERSION:-0.3.1}
+VERSION=${VERSION:-0.3.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
