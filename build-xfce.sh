@@ -61,6 +61,7 @@ for dir in \
   gtk-xfce-engine \
   murrine \
   Greybird \
+  vte3 \
   xfce4-terminal \
   orage \
   mm-common \
