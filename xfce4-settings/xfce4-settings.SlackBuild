@@ -23,7 +23,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PKGNAM=xfce4-settings
-VERSION=${VERSION:-4.13.0}
+VERSION=${VERSION:-4.12.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -35,7 +35,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://archive.xfce.org/src/xfce/xfce4-settings/4.13/$PKGNAM-$VERSION.tar.bz2
+wget -c http://archive.xfce.org/src/xfce/xfce4-settings/4.12/$PKGNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
