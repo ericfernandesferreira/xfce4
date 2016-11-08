@@ -23,7 +23,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PKGNAM=exo
-VERSION=${VERSION:-0.11.1}
+VERSION=${VERSION:-0.11.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
