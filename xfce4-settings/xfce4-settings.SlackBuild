@@ -35,7 +35,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://archive.xfce.org/src/xfce/xfce4-settings/4.12/$PKGNAM-$VERSION.tar.bz2
+wget -c http://archive.xfce.org/src/xfce/xfce4-settings/4.13/$PKGNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
