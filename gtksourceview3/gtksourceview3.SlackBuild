@@ -76,11 +76,6 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-# Code is still using G_CONST_RETURN which is deprecated in the
-# version of glib shipping with Slackware 14.0.  Let's remove the
-# G_DISABLE_DEPRECATED from C preprocessor flags.
-patch -p0 <$CWD/allow-deprecated-glib-symbols.patch
-
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
