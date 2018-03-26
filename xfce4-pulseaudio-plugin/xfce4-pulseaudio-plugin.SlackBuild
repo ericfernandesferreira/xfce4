@@ -24,8 +24,8 @@
 
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
-PKGNAM=xfce4-pulseaudio-plugin
-VERSION=${VERSION:-0.2.4}
+PRGNAM=xfce4-pulseaudio-plugin
+VERSION=${VERSION:-0.2.5}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -37,11 +37,11 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-# wget -c http://archive.xfce.org/src/panel-plugins/xfce4-pulseaudio-plugin/0.2/$PKGNAM-$VERSION.tar.bz2
+wget -c http://archive.xfce.org/src/panel-plugins/xfce4-pulseaudio-plugin/0.2/$PRGNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
-PKG=$TMP/package-$PKGNAM
+PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i586" ]; then
@@ -63,11 +63,11 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PKGNAM
-# tar xvf $CWD/$PKGNAM-$VERSION.tar.bz2
-git clone git://git.xfce.org/panel-plugins/xfce4-pulseaudio-plugin
-cd $PKGNAM
-git checkout
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+#git clone git://git.xfce.org/panel-plugins/xfce4-pulseaudio-plugin
+cd $PRGNAM-$VERSION
+#git checkout
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -77,13 +77,12 @@ find -L . \
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-./autogen.sh \
+./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc/xfce \
   --localstatedir=/var \
-  --mandir=/usr/man \
-  --docdir=/usr/doc/$PKGNAM-$VERSION \
+  --docdir=/usr/doc/$PRGNAM-$VERSION \
   --disable-debug \
   --enable-libnotify \
   --enable-keybinder \
@@ -96,17 +95,11 @@ make install DESTDIR=$PKG
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-mkdir -p $PKG/usr/doc/$PKGNAM-$VERSION
-cp -a AUTHORS COPYING* NEWS README* THANKS $PKG/usr/doc/$PKGNAM-$VERSION
-
-if [ -r ChangeLog ]; then
-  DOCSDIR=$(echo $PKG/usr/doc/${PKGNAM}-$VERSION)
-  cat ChangeLog | head -n 1000 > $DOCSDIR/ChangeLog
-  touch -r ChangeLog $DOCSDIR/ChangeLog
-fi
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a AUTHORS COPYING ChangeLog NEWS README THANKS $PKG/usr/doc/$PRGNAM-$VERSION
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}

@@ -60,6 +60,7 @@ for dir in \
   xfce4-appfinder \
   gtk-xfce-engine \
   murrine \
+  arc-theme \
   Greybird \
   vte3 \
   xfce4-terminal \
@@ -73,18 +74,21 @@ for dir in \
   xfce4-volumed-pulse \
   libxnvctrl \
   xfce4-sensors-plugin \
-  xfce4-clipman-plugin \
   xfce4-cpufreq-plugin \
   xfce4-cpugraph-plugin \
-  xfce4-screenshooter \
-  xfce4-systemload-plugin \
-  xfce4-taskmanager \
   xfce4-weather-plugin \
+  xfce4-screenshooter \
+  xfce4-taskmanager \
+  gnome-menus \
+  alacarte \
   mousepad \
   ristretto \
   xarchiver \
   thunar-archive-plugin \
   thunar-media-tags-plugin \
+  yelp-xsl \
+  yelp-tools \
+  zenity \
   ; do
   # Get the package name
   package=$(echo $dir | cut -f2- -d /)

@@ -24,9 +24,11 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
+
 PRGNAM=libxnvctrl
 SRCNAM=nvidia-settings
-VERSION=${VERSION:-375.10}
+VERSION=${VERSION:-390.42}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -38,7 +40,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c ftp://download.nvidia.com/XFree86/nvidia-settings/$SRCNAM-$VERSION.tar.bz2
+wget -c http://download.nvidia.com/XFree86/nvidia-settings/$SRCNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -74,15 +76,17 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-cd src/libXNVCtrl
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
-make clean
-make
+export PREFIX=/usr
+patch -p1 < $CWD/libxnvctrl_so.patch
 
-install -d -m 755 $PKG/usr/{include/NVCtrl,lib$LIBDIRSUFFIX}
-install -m 644 nv_control.h NVCtrl{,Lib}.h $PKG/usr/include/NVCtrl/
-install -m 644 libXNVCtrl.a $PKG/usr/lib$LIBDIRSUFFIX/libXNVCtrl.a
+make -C src/libXNVCtrl
+cd src/libXNVCtrl
+
+install -Dm 644 *.h -t $PKG/usr/include/NVCtrl
+install -Dm 644 libXNVCtrl.a -t $PKG/usr/lib$LIBDIRSUFFIX
+install -Dm 755 libXNVCtrl.so.0.0.0 -t $PKG/usr/lib$LIBDIRSUFFIX
+ln -s libXNVCtrl.so.0.0.0 $PKG/usr/lib$LIBDIRSUFFIX/libXNVCtrl.so.0
+ln -s libXNVCtrl.so.0 $PKG/usr/lib$LIBDIRSUFFIX/libXNVCtrl.so
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

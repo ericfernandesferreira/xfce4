@@ -22,8 +22,8 @@
 
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
-PKGNAM=xfdesktop
-VERSION=${VERSION:-4.12.3}
+PRGNAM=xfdesktop
+VERSION=${VERSION:-4.12.4}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -35,11 +35,11 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://archive.xfce.org/src/xfce/xfdesktop/4.12/$PKGNAM-$VERSION.tar.bz2
+wget -c http://archive.xfce.org/src/xfce/xfdesktop/4.12/$PRGNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
-PKG=$TMP/package-$PKGNAM
+PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i586" ]; then
@@ -61,10 +61,10 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PKGNAM-$VERSION
-tar xvf $CWD/$PKGNAM-$VERSION.tar.bz2
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 # git clone git://git.xfce.org/xfce/xfdesktop
-cd $PKGNAM-$VERSION
+cd $PRGNAM-$VERSION
 # git checkout
 chown -R root:root .
 find -L . \
@@ -79,7 +79,7 @@ CFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
   --mandir=/usr/man \
-  --docdir=/usr/doc/$PKGNAM-$VERSION \
+  --docdir=/usr/doc/$PRGNAM-$VERSION \
   --disable-static \
   --disable-debug \
   --build=$ARCH-slackware-linux
@@ -90,35 +90,14 @@ make install DESTDIR=$PKG
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-# Compress and if needed symlink the man pages:
-if [ -d $PKG/usr/man ]; then
-  ( cd $PKG/usr/man
-    for manpagedir in $(find . -type d -name "man*") ; do
-      ( cd $manpagedir
-        for eachpage in $( find . -type l -maxdepth 1) ; do
-          ln -s $( readlink $eachpage ).gz $eachpage.gz
-          rm $eachpage
-        done
-        gzip -9 *.?
-      )
-    done
-  )
-fi
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
-# We don't want icon caches:
-# find $PKG/usr/share/icons -type f -name "icon-theme.cache" -exec rm -f {} \;
-
-mkdir -p $PKG/usr/doc/${PKGNAM}-$VERSION
-cp -a AUTHORS COPYING NEWS README TODO $PKG/usr/doc/${PKGNAM}-$VERSION
-
-if [ -r ChangeLog ]; then
-  DOCSDIR=$(echo $PKG/usr/doc/${PKGNAM}-$VERSION)
-  cat ChangeLog | head -n 1000 > $DOCSDIR/ChangeLog
-  touch -r ChangeLog $DOCSDIR/ChangeLog
-fi
+mkdir -p $PKG/usr/doc/${PRGNAM}-$VERSION
+cp -a AUTHORS COPYING NEWS README TODO $PKG/usr/doc/${PRGNAM}-$VERSION
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}

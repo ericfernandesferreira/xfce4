@@ -26,7 +26,7 @@
 
 PRGNAM=vte3
 SRCNAM=vte
-VERSION=${VERSION:-0.44.2}
+VERSION=${VERSION:-0.44.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -80,7 +80,6 @@ CXXFLAGS="$SLKCFLAGS" \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
-  --mandir=/usr/man \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --disable-static \
   --disable-test-application \
@@ -96,7 +95,7 @@ find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | gr
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a AUTHORS ChangeLog COPYING* HACKING MAINTAINERS NEWS README* $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a AUTHORS ChangeLog COPYING* HACKING NEWS README* $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
