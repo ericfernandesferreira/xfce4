@@ -26,7 +26,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=yelp-xsl
-VERSION=${VERSION:-3.27.90}
+VERSION=${VERSION:-3.28.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://download.gnome.org/sources/yelp-xsl/3.27/$PRGNAM-$VERSION.tar.xz
+wget -c http://download.gnome.org/sources/yelp-xsl/3.28/$PRGNAM-$VERSION.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
