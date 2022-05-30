@@ -1,34 +1,30 @@
 #!/bin/sh
 
 # Slackware build script for libxnvctrl
-# Written by Eric Fernandes Ferreira <candelabrus@gmail.com>
-# Copyright 2015-2016 Eric Fernandes Ferreira, Ponta Grossa - PR, Brazil
+
+# Copyright 2015-2021 Eric Fernandes Ferreira <candelabrus@gmail.com>
 # All rights reserved.
 #
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions are
-# met:
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
 #
-# * Redistributions of source code must retain the above copyright
-# notice, this list of conditions and the following disclaimer.
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-# Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=libxnvctrl
 SRCNAM=nvidia-settings
-VERSION=${VERSION:-396.18}
+VERSION=${VERSION:-510.73.05}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -40,7 +36,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://download.nvidia.com/XFree86/nvidia-settings/$SRCNAM-$VERSION.tar.bz2
+wget -c https://download.nvidia.com/XFree86/nvidia-settings/$SRCNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -77,16 +73,15 @@ find -L . \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 export PREFIX=/usr
-patch -p1 < $CWD/libxnvctrl_so.patch
+export NV_USE_BUNDLED_LIBJANSSON=0
+patch -p0 < $CWD/libxnvctrl_so.patch
 
 make -C src/libXNVCtrl
 cd src/libXNVCtrl
 
-install -Dm 644 *.h -t $PKG/usr/include/NVCtrl
-install -Dm 644 libXNVCtrl.a -t $PKG/usr/lib$LIBDIRSUFFIX
-install -Dm 755 libXNVCtrl.so.0.0.0 -t $PKG/usr/lib$LIBDIRSUFFIX
-ln -s libXNVCtrl.so.0.0.0 $PKG/usr/lib$LIBDIRSUFFIX/libXNVCtrl.so.0
-ln -s libXNVCtrl.so.0 $PKG/usr/lib$LIBDIRSUFFIX/libXNVCtrl.so
+install -Dm 644 ./*.h -t $PKG/usr/include/NVCtrl
+install -d $PKG/usr/lib$LIBDIRSUFFIX
+cp -Pr _out/Linux_x86_64/libXNVCtrl.so* -t $PKG/usr/lib$LIBDIRSUFFIX
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

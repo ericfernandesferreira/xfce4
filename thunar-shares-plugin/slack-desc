@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+                    |-----handy-ruler------------------------------------------------------|
+thunar-shares-plugin: thunar-shares-plugin (File Share Plugin for Thunar)
+thunar-shares-plugin:
+thunar-shares-plugin: The Thunar Shares Plugin (thunar-shares-plugin) allows you
+thunar-shares-plugin: to quickly share a folder using Samba from Thunar
+thunar-shares-plugin: (the XFCE file manager) without requiring root access.
+thunar-shares-plugin:
+thunar-shares-plugin:
+thunar-shares-plugin:
+thunar-shares-plugin:
+thunar-shares-plugin:
+thunar-shares-plugin:

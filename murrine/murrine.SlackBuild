@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # Slackware build script for murrine
-# Based on the murrine SlackBuild script at SlackBuilds.org
 
-# Copyright 2013 Chess Griffin <chess.griffin@gmail.com> Raleigh, NC
+# Written by crocket (crockabiscuit@gmail.com)
+# Copyright 2013 Willy Sudiarto Raharjo <willysr@slackbuilds.org>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://download.gnome.org/sources/murrine/0.98/$PRGNAM-$VERSION.tar.xz
+wget -c https://download.gnome.org/sources/murrine/0.98/$PRGNAM-$VERSION.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -81,7 +81,6 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
   --localstatedir=/var \
-  --docdir=/usr/doc/$PRGNAM-$VERSION \
   --enable-animation \
   --enable-animationrtl \
   --build=$ARCH-slackware-linux
@@ -89,11 +88,15 @@ CXXFLAGS="$SLKCFLAGS" \
 make
 make install DESTDIR=$PKG
 
+# Don't package .la files:
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/gtk-2.0/2.10.0/engines/*.la
+
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a AUTHORS COPYING* ChangeLog INSTALL NEWS README TODO $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a AUTHORS COPYING* ChangeLog INSTALL NEWS README TODO \
+  $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install

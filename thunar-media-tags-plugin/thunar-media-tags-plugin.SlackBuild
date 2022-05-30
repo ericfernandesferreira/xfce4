@@ -25,7 +25,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=thunar-media-tags-plugin
-VERSION=${VERSION:-0.2.1}
+VERSION=${VERSION:-0.3.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -37,7 +37,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://archive.xfce.org/src/thunar-plugins/thunar-media-tags-plugin/0.2/$PRGNAM-$VERSION.tar.bz2
+wget -c https://archive.xfce.org/src/thunar-plugins/thunar-media-tags-plugin/0.3/$PRGNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -80,25 +80,27 @@ CXXFLAGS="$SLKCFLAGS" \
 ./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
-  --sysconfdir=/etc/xfce \
-  --enable-shared=yes \
-  --disable-static \
+  --sysconfdir=/etc \
+  --localstatedir=/var \
   --disable-debug \
+  --disable-static \
   --build=$ARCH-slackware-linux
 
 make
 make install DESTDIR=$PKG
 
+# Don't package .la files:
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/thunarx-3/*.la
+
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a AUTHORS COPYING NEWS README TODO $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a AUTHORS COPYING ChangeLog INSTALL NEWS README TODO $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}

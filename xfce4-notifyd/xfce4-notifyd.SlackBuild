@@ -26,7 +26,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=xfce4-notifyd
-VERSION=${VERSION:-0.4.2}
+VERSION=${VERSION:-0.6.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://archive.xfce.org/src/apps/xfce4-notifyd/0.4/$PRGNAM-$VERSION.tar.bz2
+wget -c https://archive.xfce.org/src/apps/xfce4-notifyd/0.6/$PRGNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -77,24 +77,32 @@ find -L . \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 ./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
-  --sysconfdir=/etc/xfce \
+  --sysconfdir=/etc \
   --localstatedir=/var \
   --mandir=/usr/man \
-  --disable-static \
   --disable-debug \
+  --disable-static \
   --build=$ARCH-slackware-linux
 
 make
-make install-strip DESTDIR=$PKG
+make install DESTDIR=$PKG
+
+# Don't package .la files:
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/xfce4/panel/plugins/*.la
+
+find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a AUTHORS COPYING ChangeLog NEWS README TODO $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a AUTHORS COPYING ChangeLog INSTALL NEWS README TODO $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc

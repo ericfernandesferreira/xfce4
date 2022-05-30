@@ -23,7 +23,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=xfce4-panel
-VERSION=${VERSION:-4.12.2}
+VERSION=${VERSION:-4.16.4}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -35,7 +35,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://archive.xfce.org/src/xfce/xfce4-panel/4.12/$PRGNAM-$VERSION.tar.bz2
+wget -c https://archive.xfce.org/src/xfce/xfce4-panel/4.16/$PRGNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -65,7 +65,7 @@ rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 # git clone git://git.xfce.org/xfce/xfce4-panel
 cd $PRGNAM-$VERSION
-#git checkout
+# git checkout
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -73,31 +73,39 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-# Blink to notify 4 times (4 on, 4 off), not G_MAXUINT times:
-zcat $CWD/libxfce4panel.max_blinking_count.8.diff.gz | patch -p0 --verbose
-
 CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 ./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
-  --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --disable-static \
+  --localstatedir=/var \
   --disable-debug \
-  --enable-gtk3 \
+  --disable-static \
+  --enable-gio-unix \
+  --enable-dbusmenu-gtk3 \
+  --enable-introspection=yes \
+  --with-html-dir=/usr/doc/$PRGNAM-$VERSION/html \
   --build=$ARCH-slackware-linux
 
 make
 make install DESTDIR=$PKG
 
+# Don't package .la files:
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/*.la
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/xfce4/panel/plugins/*.la
+
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-mkdir -p $PKG/usr/doc/${PRGNAM}-$VERSION
-cp -a AUTHORS COPYING* NEWS README THANKS TODO $PKG/usr/doc/${PRGNAM}-$VERSION
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a AUTHORS COPYING* ChangeLog NEWS README* THANKS TODO \
+  $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}

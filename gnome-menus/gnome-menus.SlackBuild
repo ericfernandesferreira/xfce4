@@ -25,7 +25,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=gnome-menus
-VERSION=${VERSION:-3.13.3}
+VERSION=${VERSION:-3.36.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -37,7 +37,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://download.gnome.org/sources/gnome-menus/3.13/$PRGNAM-$VERSION.tar.xz
+wget -c https://download.gnome.org/sources/gnome-menus/3.36/$PRGNAM-$VERSION.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -80,20 +80,23 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
   --localstatedir=/var \
-  --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --disable-debug \
+  --disable-static \
   --enable-introspection=yes \
-  --enable-static=no \
-  --enable-debug=no \
   --build=$ARCH-slackware-linux
 
 make
 make install DESTDIR=$PKG
 
+# Don't package .la files:
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/*.la
+
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a AUTHORS COPYING* HACKING MAINTAINERS NEWS README $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a ABOUT-NLS AUTHORS COPYING* ChangeLog HACKING NEWS README \
+  $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install

@@ -1,12 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
          |-----handy-ruler------------------------------------------------------|
-arc-theme: mate-themes (various GTK themes for the MATE desktop)
-arc-theme:
-arc-theme: mate-themes contain a variety of GTK themes for the MATE desktop.
-arc-theme:
-arc-theme:
-arc-theme:
+arc-theme: Arc is a flat theme with transparent elements for GTK 3, GTK 2 and
+arc-theme: GNOME Shell which supports GTK 3 and GTK 2 based desktop environments
+arc-theme: like GNOME, Unity, Pantheon, Xfce, MATE, Cinnamon (>=3.4), Budgie
+arc-theme: Desktop (10.4 for GTK+3.22) etc.
 arc-theme:
 arc-theme:
+arc-theme: Homepage : https://github.com/NicoHood/arc-theme/
 arc-theme:
-arc-theme: Homepage: http://www.mate-desktop.org
+arc-theme:
+arc-theme:
 arc-theme:
