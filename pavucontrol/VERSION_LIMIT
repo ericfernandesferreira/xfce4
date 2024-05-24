@@ -1,0 +1,3 @@
+Versão limite = 5.0
+Dependências necessárias = gtkmm4
+Dependência atual = gtkmm3 3.24.5

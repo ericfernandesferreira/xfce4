@@ -29,7 +29,7 @@
 PRGNAM=file-roller
 VERSION=${VERSION:-3.42.0}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_xsb}
+TAG=${TAG:-_SBo}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in

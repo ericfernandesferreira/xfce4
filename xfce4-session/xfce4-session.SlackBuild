@@ -23,7 +23,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=xfce4-session
-VERSION=${VERSION:-4.16.0}
+VERSION=${VERSION:-4.18.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -35,7 +35,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://archive.xfce.org/src/xfce/xfce4-session/4.16/$PRGNAM-$VERSION.tar.bz2
+wget -c https://archive.xfce.org/src/xfce/xfce4-session/4.18/$PRGNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -105,7 +105,7 @@ find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a AUTHORS BUGS COPYING ChangeLog INSTALL NEWS README* TODO doc/FAQ \
+cp -a AUTHORS BUGS COPYING ChangeLog NEWS README* TODO doc/FAQ \
   $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 

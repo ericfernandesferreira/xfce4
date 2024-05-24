@@ -24,7 +24,7 @@
 
 PRGNAM=libxnvctrl
 SRCNAM=nvidia-settings
-VERSION=${VERSION:-510.73.05}
+VERSION=${VERSION:-550.78}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 

@@ -25,9 +25,9 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=colord
-VERSION=${VERSION:-1.4.6}
+VERSION=${VERSION:-1.4.7}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_xsb}
+TAG=${TAG:-_SBo}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in

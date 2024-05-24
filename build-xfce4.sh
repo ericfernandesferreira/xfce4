@@ -46,6 +46,7 @@ for dir in \
   gnome-icon-theme \
   dmz-cursor-theme \
   murrine \
+  gtk-layer-shell \
   xfce4-dev-tools \
   libxfce4util \
   xfconf \
@@ -140,16 +141,3 @@ for dir in \
   # back to original directory
   cd $XSBROOT
 done
-
-# Package list that conflicts with other graphic environments 
-echo colord >> /etc/slackpkg/blacklist
-echo dmz-cursor-theme >> /etc/slackpkg/blacklist
-echo evince >> /etc/slackpkg/blacklist
-echo file-roller >> /etc/slackpkg/blacklist
-echo gnome-icon-theme >> /etc/slackpkg/blacklist
-echo gnome-menus >> /etc/slackpkg/blacklist
-echo gthumb >> /etc/slackpkg/blacklist
-echo libgxps >> /etc/slackpkg/blacklist
-echo libhandy >> /etc/slackpkg/blacklist
-echo murrine >> /etc/slackpkg/blacklist
-echo zenity >> /etc/slackpkg/blacklist

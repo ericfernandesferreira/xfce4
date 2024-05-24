@@ -35,9 +35,9 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=evince
-VERSION=${VERSION:-40.5}
+VERSION=${VERSION:-41.5}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_xsb}
+TAG=${TAG:-_SBo}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -47,7 +47,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://download.gnome.org/sources/evince/40/$PRGNAM-$VERSION.tar.xz
+wget -c https://download.gnome.org/sources/evince/41/$PRGNAM-$VERSION.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -92,10 +92,10 @@ cd build
     --localstatedir=/var \
     --mandir=/usr/man \
     --buildtype=release \
+    -Dps=enabled \
     -Dgtk_doc=false \
     -Dnautilus=false \
     -Duser_doc=false \
-    -Dbrowser_plugin=true \
     -Dsystemduserunitdir=no \
     ..
 

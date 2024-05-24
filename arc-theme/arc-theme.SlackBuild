@@ -26,7 +26,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=arc-theme
-VERSION=${VERSION:-20220405}
+VERSION=${VERSION:-20221218}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -82,8 +82,6 @@ cd build
     --sysconfdir=/etc \
     --localstatedir=/var \
     --buildtype=release \
-    -Dgtk3_version=3.24 \
-    -Dgtk4_version=4.4.1 \
     -Dgnome_shell_version=3.38 \
     -Dthemes=gtk2,gtk3,gtk4,xfwm,metacity,gnome-shell \
     ..

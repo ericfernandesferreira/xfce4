@@ -23,8 +23,8 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=inkscape
-VERSION=${VERSION:-1.2}
-COMMIT=2022-05-15_dc2aedaf03
+VERSION=${VERSION:-1.3.2}
+COMMIT=2023-11-25_091e20ef0f
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -36,7 +36,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://inkscape.org/gallery/item/33449/$PRGNAM-$VERSION.tar.xz
+wget -c https://inkscape.org/gallery/item/44615/$PRGNAM-$VERSION.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}

@@ -1,4 +1,4 @@
-Versão do Xfce4 : 4.16
+Versão do Xfce4 : 4.18
 Source do Xfce4 : http://archive.xfce.org/
 
 Requerimentos:
@@ -31,7 +31,7 @@ sh build-xfce4.sh
 
 ---------------------------------------------------------------------------
 
-Xfce4 Version: 4.16
+Xfce4 Version: 4.18
 Xfce4 Source: http://archive.xfce.org/
 
 Requirements:

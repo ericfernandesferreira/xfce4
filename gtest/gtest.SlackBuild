@@ -28,7 +28,7 @@
 
 PRGNAM=gtest
 SRCNAM=googletest
-VERSION=${VERSION:-1.11.0}
+VERSION=${VERSION:-1.14.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -40,7 +40,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://github.com/google/googletest/archive/release-$VERSION/$SRCNAM-release-$VERSION.tar.gz
+wget -c https://github.com/google/googletest/archive/refs/tags/v$VERSION.tar.gz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -66,9 +66,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $SRCNAM-release-$VERSION
-tar -xvf $CWD/$SRCNAM-release-$VERSION.tar.gz
-cd $SRCNAM-release-$VERSION
+rm -rf $SRCNAM-$VERSION
+tar -xvf $CWD/v$VERSION.tar.gz
+cd $SRCNAM-$VERSION
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -108,8 +108,6 @@ cd googlemock
 install -Dm 644 cmake/* -t $PKG/usr/src/gmock/cmake
 install -Dm 644 src/* -t $PKG/usr/src/gmock/src
 install -Dm 644 CMakeLists.txt -t $PKG/usr/src/gmock
-install -Dm 644 scripts/generator/*.py -t $PKG/usr/share/gmock/generator
-install -Dm 644 scripts/generator/cpp/* -t $PKG/usr/share/gmock/generator/cpp
 sed -i 's|src/||' $PKG/usr/src/gmock/src/gmock-all.cc
 python3 -m compileall -d /usr/share/gmock $PKG/usr/share/gmock
 python3 -O -m compileall -d /usr/share/gmock $PKG/usr/share/gmock

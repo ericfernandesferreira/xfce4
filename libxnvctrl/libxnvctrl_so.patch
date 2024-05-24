@@ -1,12 +1,12 @@
---- src/libXNVCtrl/Makefile	2019-07-30 00:26:56.000000000 +0200
-+++ src/libXNVCtrl/Makefile	2019-08-02 14:08:56.963744238 +0200
+--- src/libXNVCtrl/Makefile	2023-04-23 00:26:56.000000000 +0200
++++ src/libXNVCtrl/Makefile	2023-04-23 14:08:56.963744238 +0200
 @@ -50,8 +50,8 @@
  
- .PHONY: clean
- 
+ .PHONY: all
 -all: $(LIBXNVCTRL)
 +all: $(LIBXNVCTRL) $(LIBXNVCTRL_SHARED)
- 
+
+ .PHONY: clean
  clean:
 -	rm -rf $(LIBXNVCTRL) *~ \
 +	rm -rf $(LIBXNVCTRL) $(LIBXNVCTRL_SHARED)* *~ \
