@@ -8,7 +8,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=pavucontrol
-VERSION=${VERSION:-3.0}
+VERSION=${VERSION:-6.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -56,28 +56,30 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-zcat $CWD/replace-gtk-stock-lock-icon.diff.gz | patch -p1 --verbose
+mkdir -p build
+cd build
+  meson setup \
+    --prefix=/usr \
+    --libdir=lib${LIBDIRSUFFIX} \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --buildtype=release \
+    ..
 
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS -std=c++11" \
-./autogen.sh \
-  --prefix=/usr \
-  --libdir=/usr/lib${LIBDIRSUFFIX} \
-  --sysconfdir=/etc \
-  --localstatedir=/var \
-  --disable-gtk3 \
-  --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --build=$ARCH-slackware-linux
-
-make
-make install DESTDIR=$PKG
+  meson configure
+  ninja
+  DESTDIR=$PKG ninja install
+cd ..
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a doc/README LICENSE $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a LICENSE $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+# Don't need these:
+rm -rf $PKG/usr/share/doc
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc

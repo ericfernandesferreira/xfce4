@@ -1,0 +1,23 @@
+diff -ruN inkscape-1.1.1/share/doc/CMakeLists.txt inkscape-1.1.1-patched/share/doc/CMakeLists.txt
+--- inkscape-1.1.1/share/doc/CMakeLists.txt	2021-05-25 08:34:59.000000000 -0300
++++ inkscape-1.1.1-patched/share/doc/CMakeLists.txt	2022-01-03 19:28:31.225972637 -0300
+@@ -3,16 +3,16 @@
+ # "human-readable" LICENSE file for about dialog
+ install(FILES
+     LICENSE
+-    DESTINATION ${INKSCAPE_SHARE_INSTALL}/doc)
++    DESTINATION ${CMAKE_INSTALL_PREFIX}/doc/inkscape-1.2)
+ 
+ # actual LICENSE files from LICENSES subdirectory
+ install(DIRECTORY
+     ${CMAKE_SOURCE_DIR}/LICENSES/
+-    DESTINATION ${INKSCAPE_SHARE_INSTALL}/doc)
++    DESTINATION ${CMAKE_INSTALL_PREFIX}/doc/inkscape-1.2)
+ 
+ # additional copyright related files from root dir
+ install(FILES
+     ${CMAKE_SOURCE_DIR}/AUTHORS
+     ${CMAKE_SOURCE_DIR}/TRANSLATORS
+     ${CMAKE_SOURCE_DIR}/COPYING
+-    DESTINATION ${INKSCAPE_SHARE_INSTALL}/doc)
++    DESTINATION ${CMAKE_INSTALL_PREFIX}/doc/inkscape-1.2)

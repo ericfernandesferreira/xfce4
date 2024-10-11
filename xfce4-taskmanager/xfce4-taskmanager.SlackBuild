@@ -25,7 +25,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=xfce4-taskmanager
-VERSION=${VERSION:-1.2.1}
+VERSION=${VERSION:-1.5.7}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -37,7 +37,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://archive.xfce.org/src/apps/xfce4-taskmanager/1.2/$PRGNAM-$VERSION.tar.bz2
+wget -c https://archive.xfce.org/src/apps/xfce4-taskmanager/1.5/$PRGNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -80,10 +80,10 @@ CXXFLAGS="$SLKCFLAGS" \
 ./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
-  --sysconfdir=/etc/xfce \
-  --enable-shared=yes \
-  --enable-static=no \
-  --enable-debug=no \
+  --sysconfdir=/etc \
+  --localstatedir=/var \
+  --disable-debug \
+  --disable-static \
   --build=$ARCH-slackware-linux
 
 make
@@ -93,7 +93,8 @@ find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | gr
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a AUTHORS COPYING NEWS README* THANKS $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a AUTHORS COPYING ChangeLog NEWS README* THANKS $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc

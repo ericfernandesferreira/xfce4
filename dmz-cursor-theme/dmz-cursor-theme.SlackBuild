@@ -26,10 +26,11 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=dmz-cursor-theme
-VERSION=${VERSION:-0.4.5}
-ARCH=noarch
+VERSION=${VERSION:-0.4.5.1}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_xsb}
+TAG=${TAG:-_SBo}
+
+ARCH=noarch
 
 wget -c http://ftp.de.debian.org/debian/pool/main/d/dmz-cursor-theme/${PRGNAM}_$VERSION.tar.xz
 
@@ -45,21 +46,22 @@ mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/${PRGNAM}_$VERSION.tar.xz
-cd $PRGNAM-$VERSION/DMZ-White/pngs
-sh make.sh
-
-cd $TMP
 cd $PRGNAM-$VERSION
-install -d $PKG/usr/share/icons/Vanilla-DMZ/cursors
-cp -a DMZ-White/xcursors/* $PKG/usr/share/icons/Vanilla-DMZ/cursors
-install -Dm644 DMZ-White/index.theme $PKG/usr/share/icons/Vanilla-DMZ/index.theme
+
+# DMZ-White
+cd DMZ-White/pngs
+./make.sh
+cd -
+
+mkdir -p $PKG/usr/share/icons/DMZ-White/cursors
+install -Dm644 DMZ-White/xcursors/* $PKG/usr/share/icons/DMZ-White/cursors
+install -Dm644 DMZ-White/index.theme $PKG/usr/share/icons/DMZ-White/index.theme
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}

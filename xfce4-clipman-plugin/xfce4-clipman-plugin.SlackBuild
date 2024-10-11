@@ -25,7 +25,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=xfce4-clipman-plugin
-VERSION=${VERSION:-1.4.2}
+VERSION=${VERSION:-1.6.6}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -37,7 +37,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://archive.xfce.org/src/panel-plugins/xfce4-clipman-plugin/1.4/$PRGNAM-$VERSION.tar.bz2
+wget -c https://archive.xfce.org/src/panel-plugins/xfce4-clipman-plugin/1.6/$PRGNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -81,20 +81,23 @@ CXXFLAGS="$SLKCFLAGS" \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
-  --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --enable-shared=yes \
-  --enable-static=no \
-  --enable-debug=no \
+  --localstatedir=/var \
+  --disable-debug \
+  --disable-static \
   --build=$ARCH-slackware-linux
 
 make
 make install DESTDIR=$PKG
 
+# Don't package .la files:
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/xfce4/panel/plugins/*.la
+
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a AUTHORS COPYING ChangeLog NEWS README $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a AUTHORS COPYING NEWS README* $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc

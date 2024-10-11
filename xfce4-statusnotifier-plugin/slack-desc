@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+                           |-----handy-ruler------------------------------------------------------|
+xfce4-statusnotifier-plugin: The xfce4-statusnotifier-plugin provides a panel area for status
+xfce4-statusnotifier-plugin: notifier items (application indicators). Applications may use these
+xfce4-statusnotifier-plugin: items to display their status and interact with user. This technology
+xfce4-statusnotifier-plugin: is a modern alternative to systray and follows the freedesktop.org
+xfce4-statusnotifier-plugin: specification regarding status notification.
+xfce4-statusnotifier-plugin:
+xfce4-statusnotifier-plugin:
+xfce4-statusnotifier-plugin:
+xfce4-statusnotifier-plugin:
+xfce4-statusnotifier-plugin: Homepage : https://github.com/xfce-mirror/xfce4-statusnotifier-plugin
+xfce4-statusnotifier-plugin:

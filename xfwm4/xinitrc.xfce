@@ -1,5 +1,4 @@
 #!/bin/sh
-#  xinitrc.xfce
 
 ########################################################################
 ##  Merge in defaults and keymaps                                     ##
@@ -30,9 +29,4 @@ fi
 ##  Start xfce Desktop Environment                                    ##
 ########################################################################
 
-if [ -z "$XDG_SESSION_COOKIE" -a -x /usr/bin/ck-launch-session ]; then
-  exec /usr/bin/startxfce4 --with-ck-launch
-else
-  exec /usr/bin/startxfce4
-fi
-
+exec /usr/bin/startxfce4
