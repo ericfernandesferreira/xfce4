@@ -6,13 +6,13 @@ diff -ruN inkscape-1.1.1/share/doc/CMakeLists.txt inkscape-1.1.1-patched/share/d
  install(FILES
      LICENSE
 -    DESTINATION ${INKSCAPE_SHARE_INSTALL}/doc)
-+    DESTINATION ${CMAKE_INSTALL_PREFIX}/doc/inkscape-1.2)
++    DESTINATION ${CMAKE_INSTALL_PREFIX}/doc/inkscape-1.4)
  
  # actual LICENSE files from LICENSES subdirectory
  install(DIRECTORY
      ${CMAKE_SOURCE_DIR}/LICENSES/
 -    DESTINATION ${INKSCAPE_SHARE_INSTALL}/doc)
-+    DESTINATION ${CMAKE_INSTALL_PREFIX}/doc/inkscape-1.2)
++    DESTINATION ${CMAKE_INSTALL_PREFIX}/doc/inkscape-1.4)
  
  # additional copyright related files from root dir
  install(FILES
@@ -20,4 +20,4 @@ diff -ruN inkscape-1.1.1/share/doc/CMakeLists.txt inkscape-1.1.1-patched/share/d
      ${CMAKE_SOURCE_DIR}/TRANSLATORS
      ${CMAKE_SOURCE_DIR}/COPYING
 -    DESTINATION ${INKSCAPE_SHARE_INSTALL}/doc)
-+    DESTINATION ${CMAKE_INSTALL_PREFIX}/doc/inkscape-1.2)
++    DESTINATION ${CMAKE_INSTALL_PREFIX}/doc/inkscape-1.4)

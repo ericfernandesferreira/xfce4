@@ -2,7 +2,7 @@
 
 # Slackware build script for inkscape
 
-# Copyright 2015-2021 Eric Fernandes Ferreira <candelabrus@gmail.com>
+# Copyright 2015-2024 Eric Fernandes Ferreira <candelabrus@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 
 PRGNAM=inkscape
 VERSION=${VERSION:-1.4}
-COMMIT=rc1_2024-09-26_61ec3f243c
+COMMIT=2024-10-09_e7c3feb100
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -36,7 +36,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://inkscape.org/gallery/item/53541/$PRGNAM-${VERSION}rc1.tar.xz
+wget -c https://inkscape.org/pt-br/gallery/item/53679/$PRGNAM-$VERSION.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -62,9 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-${VERSION}-${COMMIT}
-tar xvf $CWD/$PRGNAM-${VERSION}rc1.tar.xz
-cd $PRGNAM-${VERSION}-${COMMIT}
+rm -rf $PRGNAM-${VERSION}_$COMMIT
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
+cd $PRGNAM-${VERSION}_$COMMIT
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -85,6 +85,7 @@ cd build
     -DCMAKE_INSTALL_MANDIR=/usr/man \
     -DWITH_JEMALLOC=ON \
     -DBUILD_TESTING=OFF \
+    -DENABLE_POPPLER=OFF \
     -DWITH_IMAGE_MAGICK=ON \
     -DWITH_INTERNAL_2GEOM=ON \
     -DWITH_GRAPHICS_MAGICK=ON \
