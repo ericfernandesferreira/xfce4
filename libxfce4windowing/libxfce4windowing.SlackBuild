@@ -1,8 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-# Slackware build script for gtk-layer-shell
-
-# Copyright 2015-2024 Eric Fernandes Ferreira <candelabrus@gmail.com>
+# Copyright 2012, 2018, 2020  Patrick J. Volkerding, Sebeka, Minnesota, USA
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -11,7 +9,7 @@
 # 1. Redistributions of this script must retain the above copyright
 #    notice, this list of conditions and the following disclaimer.
 #
-#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
 #  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 #  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
 #  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
@@ -22,10 +20,12 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-PRGNAM=gtk-layer-shell
-VERSION=${VERSION:-0.9.0}
+# Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
+
+PRGNAM=libxfce4windowing
+VERSION=${VERSION:-4.20.0}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_xsb}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -35,7 +35,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://github.com/wmww/gtk-layer-shell/archive/refs/tags/v$VERSION.tar.gz
+wget -c https://archive.xfce.org/src/xfce/libxfce4windowing/4.20/$PRGNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -62,8 +62,10 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/v$VERSION.tar.gz
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+# git clone git://git.xfce.org/xfce/$PRGNAM
 cd $PRGNAM-$VERSION
+# git checkout
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -71,27 +73,29 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-mkdir -p build
-cd build
-  meson setup \
-    --prefix=/usr \
-    --libdir=lib${LIBDIRSUFFIX} \
-    --sysconfdir=/etc \
-    --localstatedir=/var \
-    --buildtype=release \
-    -Ddocs=false \
-    ..
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --sysconfdir=/etc \
+  --localstatedir=/var \
+  --disable-debug \
+  --disable-static \
+  --with-html-dir=/usr/doc/$PRGNAM-$VERSION/html \
+  --build=$ARCH-slackware-linux
 
-  meson configure
-  ninja
-  DESTDIR=$PKG ninja install
-cd ..
+make
+make install DESTDIR=$PKG
+
+# Don't package .la files:
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/*.la
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a CHANGELOG* LICENSE* README* $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a ABOUT* COPYING ChangeLog NEWS README* $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
