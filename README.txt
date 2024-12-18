@@ -1,4 +1,4 @@
-Versão do Xfce4 : 4.18
+Versão do Xfce4 : 4.20
 Source do Xfce4 : http://archive.xfce.org/
 
 Requerimentos:
@@ -17,7 +17,7 @@ Conteúdo:
 - mousepad
 - pavucontrol
 - ristretto
-- themes (arc, elementary)
+- themes (arc, elementary e greybird)
 - thunar plugins
 - screensaver
 - sensors plugins (com nvidia sensors)
@@ -31,7 +31,7 @@ sh build-xfce4.sh
 
 ---------------------------------------------------------------------------
 
-Xfce4 Version: 4.18
+Xfce4 Version: 4.20
 Xfce4 Source: http://archive.xfce.org/
 
 Requirements:
@@ -50,7 +50,7 @@ Contents:
 - mousepad
 - pavucontrol
 - ristretto
-- themes (arc, elementary)
+- themes (arc, elementary and greybird)
 - thunar plugins
 - screensaver
 - sensors plugins (optional nvidia sensors)
