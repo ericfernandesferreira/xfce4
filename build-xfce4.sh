@@ -45,7 +45,6 @@ for dir in \
   libgxps \
   gnome-icon-theme \
   dmz-cursor-theme \
-  gtk-layer-shell \
   xfce4-dev-tools \
   libxfce4util \
   xfconf \
@@ -54,6 +53,7 @@ for dir in \
   garcon \
   tumbler \
   thunar \
+  libxfce4windowing \
   xfce4-panel \
   xfce4-settings \
   xfce4-session \
