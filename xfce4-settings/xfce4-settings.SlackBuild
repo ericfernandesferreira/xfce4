@@ -73,8 +73,7 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-# cat $CWD/xfce4-settings.theme.diff | patch -p1 --verbose
-# cat $CWD/xfce4-settings.xft.defaults.diff | patch -p1 --verbose
+patch -p1 < $CWD/xfce4-settings.patch
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -86,7 +85,6 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-debug \
   --disable-static \
   --enable-sound-settings \
-  --enable-pluggable-dialogs \
   --build=$ARCH-slackware-linux
 
 make

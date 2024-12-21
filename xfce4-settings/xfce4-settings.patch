@@ -1,0 +1,29 @@
+diff -ruN xfce4-settings-4.20.0/xfsettingsd/xsettings.xml xfce4-settings-4.20.0-patched/xfsettingsd/xsettings.xml
+--- xfce4-settings-4.20.0/xfsettingsd/xsettings.xml	2024-12-01 12:21:41.000000000 -0300
++++ xfce4-settings-4.20.0-patched/xfsettingsd/xsettings.xml	2024-12-20 23:21:47.350565228 -0300
+@@ -6,8 +6,8 @@
+ 
+ <channel name="xsettings" version="1.0">
+   <property name="Net" type="empty">
+-    <property name="ThemeName" type="string" value="Adwaita"/>
+-    <property name="IconThemeName" type="string" value="Adwaita"/>
++    <property name="ThemeName" type="string" value="Arc"/>
++    <property name="IconThemeName" type="string" value="elementary-xfce-dark"/>
+     <property name="DoubleClickTime" type="int" value="400"/>
+     <property name="DoubleClickDistance" type="int" value="5"/>
+     <property name="DndDragThreshold" type="int" value="8"/>
+@@ -19,10 +19,10 @@
+   </property>
+   <property name="Xft" type="empty">
+     <property name="DPI" type="int" value="-1"/>
+-    <property name="Antialias" type="int" value="-1"/>
+-    <property name="Hinting" type="int" value="-1"/>
+-    <property name="HintStyle" type="string" value="hintnone"/>
+-    <property name="RGBA" type="string" value="none"/>
++    <property name="Antialias" type="int" value="1"/>
++    <property name="Hinting" type="int" value="1"/>
++    <property name="HintStyle" type="string" value="hintfull"/>
++    <property name="RGBA" type="string" value="rgb"/>
+   </property>
+   <property name="Gtk" type="empty">
+     <property name="CanChangeAccels" type="bool" value="false"/>
