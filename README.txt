@@ -3,7 +3,7 @@ Source do Xfce4 : http://archive.xfce.org/
 
 Requerimentos:
 - slackware64 Current
-- pacote de audio : http://www.gitlab.com/grinder/audio.git
+- pacote de audio : https://github.com/ericfernandesferreira/audio.git
 
 Conteúdo:
 - alacarte
@@ -25,7 +25,7 @@ Conteúdo:
 Esse source foi construído principalmente para quem quiser usar a última versão do xfce4 com seus respectivos aplicativos para um desktop completo.
 
 Como instalar:
-- você precisa clonar com o comando : git clone https://gitlab.com/grinder/xfce4.git
+- você precisa clonar com o comando : git clone https://github.com/ericfernandesferreira/xfce4.git
 E então dentro da pasta criada execute o script de instalação
 sh build-xfce4.sh
 
@@ -36,7 +36,7 @@ Xfce4 Source: http://archive.xfce.org/
 
 Requirements:
 - slackware64 Current
-- audio package : http://www.gitlab.com/grinder/audio.git
+- audio package : https://github.com/ericfernandesferreira/audio.git
 
 Contents:
 - alacarte
@@ -58,6 +58,6 @@ Contents:
 This source was built especially for those who want to use the latest version of xfce4 with a lot applications for a full desktop.
 
 How to install:
-- you need to clone with command : git clone https://gitlab.com/grinder/xfce4.git
+- you need to clone with command : git clone https://github.com/ericfernandesferreira/xfce4.git
 And then inside the created folder run the installation script
 sh build-xfce4.sh

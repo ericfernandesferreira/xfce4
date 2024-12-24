@@ -75,6 +75,9 @@ find -L . \
 
 patch -p1 < $CWD/use-xfss-by-default-in-xfce.patch
 
+# labwc should be called with --session, not --startup:
+cat $CWD/xfce4-session.labwc.session.diff | patch -p1 --version
+
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
