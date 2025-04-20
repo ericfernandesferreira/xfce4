@@ -101,7 +101,6 @@ for dir in \
   evince \
   gthumb \
   ristretto \
-  libportal \
   libadwaita \
   file-roller \
   thunar-shares-plugin \
