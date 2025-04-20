@@ -27,7 +27,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=file-roller
-VERSION=${VERSION:-44.5}
+VERSION=${VERSION:-3.42.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -39,7 +39,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://download.gnome.org/sources/file-roller/44/$PRGNAM-$VERSION.tar.xz
+wget -c https://download.gnome.org/sources/file-roller/3.42/$PRGNAM-$VERSION.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
