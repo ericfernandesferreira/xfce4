@@ -79,6 +79,7 @@ for dir in \
   libxnvctrl \
   xfce4-xkb-plugin \
   xfce4-timer-plugin \
+  xfce4-notes-plugin \
   xfce4-mount-plugin \
   xfce4-weather-plugin \
   xfce4-battery-plugin \

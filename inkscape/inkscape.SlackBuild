@@ -2,7 +2,7 @@
 
 # Slackware build script for inkscape
 
-# Copyright 2015-2024 Eric Fernandes Ferreira <candelabrus@gmail.com>
+# Copyright 2015-2025 Eric Fernandes Ferreira <candelabrus@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,8 +23,9 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=inkscape
-VERSION=${VERSION:-1.4}
-COMMIT=2024-10-09_e7c3feb100
+SRCNAM=INKSCAPE
+VERSION=${VERSION:-1.4.1}
+SRCVERSION=${SRCVERSION:-1_4_1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -36,7 +37,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://inkscape.org/pt-br/gallery/item/53679/$PRGNAM-$VERSION.tar.xz
+wget -c https://gitlab.com/inkscape/inkscape/-/archive/${SRCNAM}_$SRCVERSION/$PRGNAM-${SRCNAM}_$SRCVERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/xsb}
@@ -62,9 +63,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-${VERSION}_$COMMIT
-tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
-cd $PRGNAM-${VERSION}_$COMMIT
+rm -rf $PRGNAM-${SRCNAM}_$SRCVERSION
+tar xvf $CWD/$PRGNAM-${SRCNAM}_$SRCVERSION.tar.bz2
+cd $PRGNAM-${SRCNAM}_$SRCVERSION
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -72,18 +73,25 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-# Fix compilation of poppler
-patch -p1 < $CWD/poppler_24_10.patch
-patch -p1 < $CWD/poppler_24_11.patch
-patch -p1 < $CWD/poppler_24_12.patch
-
 # Fix mandir local installation
 patch -p1 < $CWD/fixdocdir.patch
 sed -i CMakeScripts/Pod2man.cmake -e "s/SHARE_INSTALL/CMAKE_INSTALL_PREFIX/g"
 
+# Pushing 3rdparty left
+cd src/3rdparty
+git clone https://gitlab.com/inkscape/lib2geom.git 2geom
+git clone https://gitlab.com/inkscape/libcroco.git
+cd -
+
+# Pushing extensions
+cd share
+git clone --recursive https://gitlab.com/inkscape/extensions.git
+cd -
+
 mkdir -p build
 cd build
   cmake \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
