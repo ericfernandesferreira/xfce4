@@ -31,7 +31,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=mm-common
-VERSION=${VERSION:-1.0.6}
+VERSION=${VERSION:-1.0.7}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 

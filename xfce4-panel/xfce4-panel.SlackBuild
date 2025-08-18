@@ -23,7 +23,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=xfce4-panel
-VERSION=${VERSION:-4.20.4}
+VERSION=${VERSION:-4.20.5}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
@@ -82,7 +82,6 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var \
   --disable-debug \
   --disable-static \
-  --enable-gio-unix \
   --enable-dbusmenu-gtk3 \
   --enable-introspection=yes \
   --with-html-dir=/usr/doc/$PRGNAM-$VERSION/html \

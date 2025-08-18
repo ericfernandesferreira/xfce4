@@ -96,7 +96,6 @@ for dir in \
   gnome-menus \
   xfce4-whiskermenu-plugin \
   alacarte \
-  galculator \
   mousepad \
   evince \
   gthumb \
