@@ -38,7 +38,7 @@ TMP=${TMP:-/tmp}
 # This is the original directory where you started this script
 XSBROOT=$(pwd)
 
-slackpkg install Greybird
+slackpkg install Greybird qalculate-gtk
 
 # Loop for all base packages
 for dir in \
