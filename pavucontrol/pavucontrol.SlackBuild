@@ -8,7 +8,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal Xfce Project
 
 PRGNAM=pavucontrol
-VERSION=${VERSION:-6.1}
+VERSION=${VERSION:-6.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_xsb}
 
