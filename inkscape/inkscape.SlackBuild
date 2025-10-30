@@ -75,6 +75,8 @@ find -L . \
 
 patch -p1 < $CWD/poppler-25.06.patch
 patch -p1 < $CWD/poppler-25.07.patch
+patch -p1 < $CWD/poppler-25.09.patch
+patch -p1 < $CWD/poppler-25.10.patch
 
 # Fix mandir local installation
 patch -p1 < $CWD/fixdocdir.patch
