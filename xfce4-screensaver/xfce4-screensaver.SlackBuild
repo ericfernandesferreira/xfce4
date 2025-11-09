@@ -83,7 +83,7 @@ cd build
     --mandir=/usr/man \
     --buildtype=release \
     -Ddocs=disabled \
-    -Dwayland=disabled \
+    -Dwayland=enabled \
     -Dsession-manager=elogind \
     ..
 
