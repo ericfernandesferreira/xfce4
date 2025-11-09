@@ -75,6 +75,8 @@ for dir in \
   xfce4-power-manager \
   xfce4-notifyd \
   xfce4-volumed-pulse \
+  wlr-protocols \
+  libwlembed \
   xfce4-screensaver \
   libxnvctrl \
   xfce4-xkb-plugin \
