@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+         |-----handy-ruler------------------------------------------------------|
+libwlembed: libwlembed is a Wayland compositor library that allows you to embed
+libwlembed: surfaces from one application into another by way of what's called an
+libwlembed: "embedded compositor".
+libwlembed:
+libwlembed: This project consists of two libraries:
+libwlembed: - libwlembed, a toolkit-agnostic library that implements the embedded
+libwlembed: compositor
+libwlembed: - libwlembed-gtk3, a GTK3 library that wraps the embedded compositor
+libwlembed: into an easy-to-use GtkWidget called WleGtkSocket
+libwlembed:
+libwlembed: Homepage : https://gitlab.xfce.org/kelnos/libwlembed/
