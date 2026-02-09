@@ -65,6 +65,7 @@ for dir in \
   potrace \
   inkscape \
   arc-theme \
+  flameshot \
   elementary-xfce \
   xfce4-terminal \
   xfce4-dict \
